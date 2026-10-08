@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Memory {
+  id                      String    @id @default(uuid())
+  content                 String
+  normalizedContent       String
+  category                String    // identity, payment, preference, instruction, etc.
+  sourceType              String    // direct_user, uploaded_document, agent_inference, etc.
+  sourceName              String
+  sourceId                String?
+  originSource            String?
+  originTrust             Int
+  trustScore              Int
+  riskScore               Int
+  confidence              Int
+  sensitivity             String    // low, medium, high, critical
+  status                  String    // verified, trusted, review, quarantined, superseded, expired
+  userVerified            Boolean   @default(false)
+  humanVerifiedAt         DateTime?
+  humanVerificationReason String?
+  conflictsWith           String?
+  provenance              String    // JSON stringified lineage
+  securityDecisionVersion Int       @default(1)
+  
+  validFrom               DateTime  @default(now())
+  validUntil              DateTime?
+  version                 Int       @default(1)
+  supersededBy            String?
+  
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  
+  events                  SecurityEvent[]
+}
+
+model SecurityEvent {
+  id              String   @id @default(uuid())
+  memoryId        String
+  eventType       String   // memory_quarantined, memory_write_allowed, retrieval_blocked, etc.
+  details         String   // JSON stringified EvidenceBundle and triggered rules
+  timestamp       DateTime @default(now())
+
+  memory          Memory   @relation(fields: [memoryId], references: [id], onDelete: Cascade)
+}
