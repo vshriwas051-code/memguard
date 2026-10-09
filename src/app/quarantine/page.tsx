@@ -19,18 +19,18 @@ export default async function QuarantinePage() {
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight text-rose-500 flex items-center gap-2">
-          <ShieldAlert className="h-8 w-8" />
-          Quarantine Zone
+    <div className="mx-auto max-w-[1400px] space-y-10 px-4 py-8 sm:px-8">
+      <div className="space-y-3">
+        <div className="mg-eyebrow flex items-center gap-2"><ShieldAlert className="h-3.5 w-3.5 text-[var(--mg-danger)]" /> 03 / Isolation</div>
+        <h1 className="text-4xl font-light tracking-[-0.03em] text-white sm:text-6xl">
+          Quarantine <span className="mg-gradient-text">Zone</span>
         </h1>
-        <p className="text-muted-foreground mt-1">Memories isolated by the MemGuard policy engine pending human review.</p>
+        <p className="max-w-xl text-[13px] text-white/60">Memories isolated by the MemGuard policy engine pending human review.</p>
       </div>
 
       <div className="grid gap-6">
         {quarantined.length === 0 ? (
-          <div className="text-center p-12 border border-dashed border-slate-800 rounded-lg text-slate-500">
+          <div className="rounded-2xl border border-dashed border-white/15 p-12 text-center text-white/45">
             No memories currently in quarantine. System is clear.
           </div>
         ) : (
@@ -43,13 +43,13 @@ export default async function QuarantinePage() {
             } catch (e) {}
 
             return (
-              <Card key={memory.id} className="bg-black/50 border-rose-900/50">
-                <CardHeader className="border-b border-white/5 pb-4">
-                  <div className="flex justify-between items-start">
+              <Card key={memory.id} className="ring-[var(--mg-danger)]/25 backdrop-blur-md">
+                <CardHeader className="border-b border-white/10 pb-4">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
                     <div>
-                      <CardTitle className="text-lg font-medium flex items-center gap-2">
+                      <CardTitle className="flex flex-wrap items-center gap-2 text-lg font-normal">
                         Intercepted {memory.category} Memory
-                        <Badge variant="outline" className="bg-rose-950/50 text-rose-400 border-rose-900/50">
+                        <Badge variant="outline" className="border-[var(--mg-danger)]/40 bg-[var(--mg-danger)]/10 text-[var(--mg-danger)]">
                           {memory.status.toUpperCase()}
                         </Badge>
                       </CardTitle>
@@ -59,43 +59,43 @@ export default async function QuarantinePage() {
                     </div>
                     <div className="flex gap-2">
                       {/* For hackathon demo, these are purely visual non-functional buttons */}
-                      <Button variant="outline" size="sm" className="bg-slate-900 hover:bg-emerald-950 hover:text-emerald-400 border-slate-800">
+                      <Button variant="outline" size="sm" className="border-white/15 bg-transparent hover:border-[var(--mg-safe)]/50 hover:bg-[var(--mg-safe)]/10 hover:text-[var(--mg-safe)]">
                         <CheckCircle className="mr-2 h-4 w-4" /> Verify & Allow
                       </Button>
-                      <Button variant="outline" size="sm" className="bg-slate-900 hover:bg-rose-950 hover:text-rose-400 border-slate-800">
+                      <Button variant="outline" size="sm" className="border-white/15 bg-transparent hover:border-[var(--mg-danger)]/50 hover:bg-[var(--mg-danger)]/10 hover:text-[var(--mg-danger)]">
                         <XCircle className="mr-2 h-4 w-4" /> Reject & Purge
                       </Button>
                     </div>
                   </div>
                 </CardHeader>
                 <CardContent className="pt-6 space-y-4">
-                  <div className="bg-slate-950 p-4 rounded-md border border-slate-800 font-mono text-sm text-rose-200/80">
+                  <div className="rounded-lg border border-white/10 bg-black/30 p-4 font-mono text-sm text-[var(--mg-lime)]">
                     "{memory.content}"
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4 mt-4">
+                  <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
                     <div>
-                      <div className="text-xs text-slate-500 mb-1">Triggered Rules</div>
-                      <div className="text-sm font-medium text-amber-500">
+                      <div className="mg-eyebrow mb-1">Triggered Rules</div>
+                      <div className="text-sm text-[var(--mg-warn)]">
                         {eventDetails.policyRulesTriggered?.join(", ") || "Unknown Rule"}
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 mb-1">Risk Score</div>
-                      <div className="text-sm font-bold text-rose-500">
+                      <div className="mg-eyebrow mb-1">Risk Score</div>
+                      <div className="text-sm font-medium text-[var(--mg-danger)]">
                         {memory.riskScore} / 100
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-slate-500 mb-1">Sensitivity</div>
-                      <div className="text-sm font-medium text-rose-400">
+                      <div className="mg-eyebrow mb-1">Sensitivity</div>
+                      <div className="text-sm text-[var(--mg-danger)]">
                         {memory.sensitivity.toUpperCase()}
                       </div>
                     </div>
                   </div>
                   
                   {eventDetails.explanation && (
-                    <div className="mt-4 p-3 bg-rose-950/20 border border-rose-900/30 rounded text-sm text-rose-300">
+                    <div className="mt-4 rounded-lg border border-[var(--mg-danger)]/25 bg-[var(--mg-danger)]/[0.06] p-3 text-sm text-white/80">
                       <strong>AI Security Analyst:</strong> {eventDetails.explanation}
                     </div>
                   )}

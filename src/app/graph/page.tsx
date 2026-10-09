@@ -37,13 +37,15 @@ export default async function GraphPage() {
       },
       type: 'default',
       style: {
-        background: isVerified ? '#064e3b' : isQuarantined ? '#4c0519' : '#451a03',
-        color: isVerified ? '#34d399' : isQuarantined ? '#f43f5e' : '#fbbf24',
-        border: `1px solid ${isVerified ? '#059669' : isQuarantined ? '#e11d48' : '#d97706'}`,
-        borderRadius: '8px',
+        background: isVerified ? 'rgba(201, 216, 107, 0.10)' : isQuarantined ? 'rgba(240, 100, 138, 0.12)' : 'rgba(233, 181, 98, 0.10)',
+        color: isVerified ? '#dce38a' : isQuarantined ? '#f0648a' : '#e9b562',
+        border: `1px solid ${isVerified ? 'rgba(201, 216, 107, 0.55)' : isQuarantined ? 'rgba(240, 100, 138, 0.6)' : 'rgba(233, 181, 98, 0.55)'}`,
+        borderRadius: '10px',
         padding: '10px',
         width: 200,
-        fontSize: '12px'
+        fontSize: '12px',
+        fontFamily: 'var(--font-dm-mono), monospace',
+        letterSpacing: '0.04em'
       }
     });
 
@@ -53,22 +55,22 @@ export default async function GraphPage() {
         source: mem.id,
         target: mem.conflictsWith,
         animated: true,
-        style: { stroke: '#f43f5e', strokeWidth: 2 }
+        style: { stroke: '#f0648a', strokeWidth: 1.5 }
       });
     }
   });
 
   return (
-    <div className="p-8 max-w-7xl mx-auto h-[calc(100vh-2rem)] flex flex-col">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-          <Network className="h-8 w-8 text-blue-500" />
-          Memory Graph
+    <div className="mx-auto flex h-[calc(100vh-88px)] min-h-[560px] max-w-[1400px] flex-col gap-8 px-4 py-8 sm:px-8">
+      <div className="space-y-3">
+        <div className="mg-eyebrow flex items-center gap-2"><Network className="h-3.5 w-3.5 text-[var(--mg-periwinkle)]" /> 05 / Topology</div>
+        <h1 className="text-4xl font-light tracking-[-0.03em] text-white sm:text-6xl">
+          Memory <span className="mg-gradient-text">Graph</span>
         </h1>
-        <p className="text-muted-foreground mt-1">Topology of verified context and intercepted attacks.</p>
+        <p className="max-w-xl text-[13px] text-white/60">Topology of verified context and intercepted attacks.</p>
       </div>
 
-      <div className="flex-1 bg-slate-950/50 border border-slate-800 rounded-lg overflow-hidden">
+      <div className="mg-flow flex-1 overflow-hidden rounded-2xl border border-white/10 bg-black/30 backdrop-blur-md">
         <GraphClient initialNodes={nodes} initialEdges={edges} />
       </div>
     </div>

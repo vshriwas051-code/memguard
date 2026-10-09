@@ -84,29 +84,27 @@ export default function AgentPage() {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 h-[calc(100vh-2rem)] flex flex-col">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-          <Bot className="h-8 w-8 text-blue-500" />
-          Agent Playground
+    <div className="mx-auto flex h-[calc(100vh-88px)] min-h-[560px] max-w-[1400px] flex-col space-y-8 px-4 py-8 sm:px-8">
+      <div className="space-y-3">
+        <div className="mg-eyebrow flex items-center gap-2"><Bot className="h-3.5 w-3.5 text-[var(--mg-lime)]" /> 02 / Agent</div>
+        <h1 className="text-4xl font-light tracking-[-0.03em] text-white sm:text-6xl">
+          Agent <span className="mg-gradient-text">Playground</span>
         </h1>
-        <p className="text-muted-foreground mt-1">
-          Simulated LLM Agent environment querying MemGuard context.
-        </p>
+        <p className="max-w-xl text-[13px] text-white/60">Simulated LLM Agent environment querying MemGuard context.</p>
       </div>
 
-      <Card className="bg-black/50 border-blue-900/50 flex-1 flex flex-col overflow-hidden">
-        <CardHeader className="border-b border-white/5 pb-4 bg-slate-950">
-          <div className="flex justify-between items-center">
+      <Card className="flex flex-1 flex-col overflow-hidden backdrop-blur-md">
+        <CardHeader className="border-b border-white/10 bg-black/20 pb-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <CardTitle className="flex items-center gap-2">
-                <TerminalSquare className="h-5 w-5 text-blue-400" /> Active LLM Session
+              <CardTitle className="flex items-center gap-2 font-normal">
+                <TerminalSquare className="h-5 w-5 text-[var(--mg-periwinkle)]" /> Active LLM Session
               </CardTitle>
               <CardDescription className="mt-1">
                 Demonstrates how the agent behaves downstream of the Retrieval Guard.
               </CardDescription>
             </div>
-            <Badge variant="outline" className="bg-emerald-950/30 text-emerald-400 border-emerald-900/50 flex gap-2 py-1.5">
+            <Badge variant="outline" className="flex gap-2 border-[var(--mg-safe)]/30 bg-[var(--mg-safe)]/10 py-1.5 text-[var(--mg-safe)]">
               <ShieldCheck className="h-4 w-4" /> MemGuard Active
             </Badge>
           </div>
@@ -119,21 +117,21 @@ export default function AgentPage() {
                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {msg.role === 'system' ? (
                     <div className="w-full text-center py-2">
-                      <span className="bg-slate-900 text-slate-400 text-xs py-1 px-3 rounded-full font-mono border border-slate-800">
+                      <span className="inline-block rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-mono text-[11px] text-white/50">
                         {msg.content}
                       </span>
                     </div>
                   ) : (
                     <div className={`flex gap-3 max-w-[80%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center shrink-0 ${
-                        msg.role === 'user' ? 'bg-blue-600' : 'bg-slate-800 border border-slate-700'
+                        msg.role === 'user' ? '[background-image:var(--mg-gradient)]' : 'border border-white/15 bg-white/5'
                       }`}>
-                        {msg.role === 'user' ? <User className="h-4 w-4 text-white" /> : <Bot className="h-4 w-4 text-emerald-400" />}
+                        {msg.role === 'user' ? <User className="h-4 w-4 text-[#0b0a0d]" /> : <Bot className="h-4 w-4 text-[var(--mg-lime)]" />}
                       </div>
                       <div className={`p-4 rounded-lg ${
                         msg.role === 'user' 
-                          ? 'bg-blue-600 text-white rounded-tr-none' 
-                          : 'bg-slate-900 text-slate-200 border border-slate-800 rounded-tl-none font-mono text-sm shadow-xl'
+                          ? 'bg-[var(--mg-periwinkle)]/15 border border-[var(--mg-periwinkle)]/40 text-white rounded-tr-none text-sm' 
+                          : 'bg-black/30 text-white/85 border border-white/10 rounded-tl-none font-mono text-sm'
                       }`}>
                         {msg.content}
                       </div>
@@ -144,10 +142,10 @@ export default function AgentPage() {
               {loading && (
                 <div className="flex justify-start">
                   <div className="flex gap-3 max-w-[80%] flex-row">
-                    <div className="h-8 w-8 rounded-full flex items-center justify-center shrink-0 bg-slate-800 border border-slate-700">
-                      <Bot className="h-4 w-4 text-emerald-400 animate-pulse" />
+                    <div className="h-8 w-8 rounded-full flex items-center justify-center shrink-0 border border-white/15 bg-white/5">
+                      <Bot className="h-4 w-4 text-[var(--mg-lime)] animate-pulse" />
                     </div>
-                    <div className="p-4 rounded-lg bg-slate-900 text-slate-400 border border-slate-800 rounded-tl-none font-mono text-sm">
+                    <div className="p-4 rounded-lg bg-black/30 text-white/50 border border-white/10 rounded-tl-none font-mono text-sm">
                       <span className="animate-pulse">Agent is thinking...</span>
                     </div>
                   </div>
@@ -157,7 +155,7 @@ export default function AgentPage() {
           </ScrollArea>
         </CardContent>
         
-        <CardFooter className="border-t border-white/5 bg-slate-950 p-4">
+        <CardFooter className="border-t border-white/10 bg-black/20 p-4">
           <form 
             className="flex w-full gap-2"
             onSubmit={(e) => { e.preventDefault(); handleSend(); }}
@@ -166,10 +164,10 @@ export default function AgentPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="E.g., 'Pay the ACME invoice' or 'What is my theme preference?'" 
-              className="flex-1 bg-slate-900 border-slate-800 focus-visible:ring-blue-500"
+              className="h-10 flex-1 border-white/10 bg-black/40 focus-visible:ring-[var(--mg-periwinkle)]"
               disabled={loading}
             />
-            <Button type="submit" disabled={!input.trim() || loading} className="bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" disabled={!input.trim() || loading} className="h-10 w-12 text-[#0b0a0d] [background-image:var(--mg-gradient)] hover:brightness-110">
               <Send className="h-4 w-4" />
             </Button>
           </form>

@@ -24,13 +24,14 @@ export function GraphClient({ initialNodes, initialEdges }: { initialNodes: any[
         onEdgesChange={onEdgesChange}
         fitView
         colorMode="dark"
+        style={{ background: 'transparent' }}
       >
         <Controls />
         <MiniMap zoomable pannable nodeColor={(n) => {
           if (n.style?.background) return n.style.background as string;
           return '#000';
         }} />
-        <Background gap={12} size={1} />
+        <Background gap={24} size={1} color="rgba(255,255,255,0.12)" />
       </ReactFlow>
     </div>
   );

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { DM_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/layout/Sidebar";
+import { Navbar } from "@/components/layout/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-dm-mono",
+});
 
 export const metadata: Metadata = {
   title: "MemGuard | AI Memory Security",
@@ -16,12 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} bg-[#060B14] text-slate-50 flex h-screen overflow-hidden`}>
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-[#0B1121] border-t border-l border-slate-800/50 rounded-tl-2xl shadow-xl">
-          {children}
-        </main>
+    <html lang="en" className={`dark ${dmMono.variable}`}>
+      <body className="min-h-screen bg-[#0b0a0d] font-sans text-[#f4f3f6] antialiased">
+        <div className="mg-backdrop" aria-hidden />
+        <div className="relative z-10 flex min-h-screen flex-col">
+          <Navbar />
+          <main className="flex-1">{children}</main>
+        </div>
       </body>
     </html>
   );
